@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using Order_domain.Items;
 using Order_domain.Items.Prices;
+using Order_domain.tests.Items;
 using Order_service.Items;
 using Xunit;
 
@@ -25,44 +25,44 @@ namespace Order_service.tests.Items
         }
 
         [Fact]
-        public void createItem()
+        public void CreateItem()
         {
-            Item createdItem = _itemService.CreateItem(ItemTestBuilder.anItem()
-                .withName("The Martian")
-                .withDescription("A cool book written by a software engineer")
-                .withAmountOfStock(239)
-                .withPrice(Price.create(BigDecimal.valueOf(10.90)))
-                .build());
+            Item createdItem = _itemService.CreateItem(ItemTestBuilder.AnItem()
+                .WithName("The Martian")
+                .WithDescription("A cool book written by a software engineer")
+                .WithAmountOfStock(239)
+                .WithPrice(Price.Create(new decimal(10.90)))
+                .Build());
 
-            assertThat(createdItem).isNotNull();
-            assertThat(createdItem.getId()).isNotNull().isNotEqualTo("");
-            assertThat(createdItem.getName()).isEqualTo("The Martian");
-            assertThat(createdItem.getDescription()).isEqualTo("A cool book written by a software engineer");
-            assertThat(createdItem.getAmountOfStock()).isEqualTo(239);
-            assertThat(createdItem.getPrice().getAmount()).isEqualTo(BigDecimal.valueOf(10.90));
+            Assert.NotNull(createdItem);
+            Assert.NotEqual(Guid.Empty, createdItem.Id);
+            Assert.Equal("The Martian", createdItem.Name);
+            Assert.Equal("A cool book written by a software engineer", createdItem.Description);
+            Assert.Equal(239, createdItem.AmountOfStock);
+            Assert.Equal(new decimal(10.90), createdItem.Price.Amount);
         }
 
         [Fact]
-        public void getItem()
+        public void GetItem()
         {
-            Item createdItem = itemService.createItem(anItem().build());
+            Item createdItem = _itemService.CreateItem(ItemTestBuilder.AnItem().Build());
 
-            Item itemFromDb = itemService.getItem(createdItem.getId());
+            Item itemFromDb = _itemService.GetItem(createdItem.Id);
 
-            assertThat(itemFromDb)
-                .isNotNull()
-                .isEqualTo(itemFromDb);
+            Assert.NotNull(itemFromDb);
+            Assert.Equal(createdItem, itemFromDb);
         }
 
         [Fact]
-        public void getAllItems()
+        public void GetAllItems()
         {
-            Item createdItem1 = itemService.createItem(anItem().build());
-            Item createdItem2 = itemService.createItem(anItem().build());
+            Item createdItem1 = _itemService.CreateItem(ItemTestBuilder.AnItem().Build());
+            Item createdItem2 = _itemService.CreateItem(ItemTestBuilder.AnItem().Build());
 
-            List<Item> allItems = itemService.getAllItems();
+            var allItems = _itemService.GetAllItems().ToList();
 
-            assertThat(allItems).containsExactlyInAnyOrder(createdItem1, createdItem2);
+            Assert.Contains(createdItem1, allItems);
+            Assert.Contains(createdItem2, allItems);
         }
     }
 }

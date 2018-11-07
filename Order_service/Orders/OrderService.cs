@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Oder_infrastructure.Exceptions;
 using Order_domain.Customers;
 using Order_domain.Items;
 using Order_domain.Orders;
@@ -77,7 +78,7 @@ namespace Order_service.Orders
         {
             if (!DoAllOrderItemsReferenceAnExistingItem(order.OrderItems))
             {
-                //throw new EntityNotValidException("creation of a new order when checking if all the ordered items exist",order);
+                throw new EntityNotValidException("creation of a new order when checking if all the ordered items exist", order);
             }
         }
 
@@ -90,7 +91,7 @@ namespace Order_service.Orders
         {
             if (!DoesCustomerExist(order))
             {
-                //throw new EntityNotFoundException("creation of a new order when checking if the referenced customer exists",Customer.class, order.getCustomerId());
+                throw new EntityNotFoundException("creation of a new order when checking if the referenced customer exists", nameof(Customer), order.CustomerId);
             }
         }
 
@@ -125,7 +126,7 @@ namespace Order_service.Orders
         {
             if (!DoesOrderToReorderBelongToAuthenticatedUser(orderToReorder.CustomerId))
             {
-                //throw new NotAuthorizedException("Customer " + orderToReorder.CustomerId.toString("N") + " is not allowed " + "to reorder the Order " + orderId.ToString("N") + " because he's not the owner of that order!");
+                throw new NotAuthorizedException("Customer " + orderToReorder.CustomerId.ToString("N") + " is not allowed " + "to reorder the Order " + orderId.ToString("N") + " because he's not the owner of that order!");
             }
         }
 
