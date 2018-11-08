@@ -17,12 +17,12 @@ namespace Order_domain.tests.Items
         public static ItemTestBuilder AnEmptyItem()
         {
             
-            return new ItemTestBuilder(Item.ItemBuilder.item());
+            return new ItemTestBuilder(Item.ItemBuilder.Item());
         }
 
         public static ItemTestBuilder AnItem()
         {
-            return new ItemTestBuilder(Item.ItemBuilder.item()
+            return new ItemTestBuilder(Item.ItemBuilder.Item()
                 .WithName("Headphone")
                 .WithDescription("Just a simple headphone")
                 .WithAmountOfStock(50)

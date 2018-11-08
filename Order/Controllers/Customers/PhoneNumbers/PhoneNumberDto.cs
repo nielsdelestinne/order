@@ -2,9 +2,9 @@
 {
     public class PhoneNumberDto
     {
-        public string Number { get; private set; }
+        public string Number { get; set; }
 
-        public string CountryCallingCode { get; private set; }
+        public string CountryCallingCode { get; set; }
         
         public PhoneNumberDto WithNumber(string number)
         {

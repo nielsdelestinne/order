@@ -99,13 +99,14 @@ namespace Order_api.tests.Controllers.Customers
                 .WithNumber(number);
 
             // when
-            Customer customer = _customerMapper.ToDomain(new CustomerDto()
-                    .WithId(customerId)
-                    .WithFirstname(firstname)
-                    .WithLastname(lastname)
-                    .WithAddress(addressDto)
-                    .WithEmail(emailDto)
-                    .WithPhoneNumber(phoneNumberDto));
+            Customer customer = _customerMapper.ToDomain(CustomerDtoBuilder.CustomerDto()
+                .WithId(customerId)
+                .WithFirstname(firstname)
+                .WithLastname(lastname)
+                .WithAddress(addressDto)
+                .WithEmail(emailDto)
+                .WithPhoneNumber(phoneNumberDto)
+                .Build());
 
             // then
             Assert.Equal(customerId, customer.Id);

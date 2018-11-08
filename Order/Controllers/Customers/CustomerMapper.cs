@@ -22,13 +22,14 @@ namespace Order_api.Controllers.Customers
 
         public override CustomerDto ToDto(Customer customer)
         {
-            return new CustomerDto()
+            return CustomerDtoBuilder.CustomerDto()
                 .WithId(customer.Id)
                 .WithFirstname(customer.FirstName)
                 .WithLastname(customer.LastName)
                 .WithAddress(_addressMapper.ToDto(customer.Address))
                 .WithEmail(_emailMapper.ToDto(customer.Email))
-                .WithPhoneNumber(_phoneNumberMapper.ToDto(customer.PhoneNumber));
+                .WithPhoneNumber(_phoneNumberMapper.ToDto(customer.PhoneNumber))
+                .Build();
         }
 
         public override Customer ToDomain(CustomerDto customerDto)

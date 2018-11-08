@@ -35,40 +35,38 @@ namespace Order_api.integrationTests.Controllers.Customers
             _customerRepository.Reset();
         }
 
-        //[Fact]
-        //public async Task CreateCustomer()
-        //{
-        //    CustomerDto customerToCreate = new CustomerDto()
-        //        .WithFirstname("Bruce")
-        //        .WithLastname("Wayne")
-        //        .WithEmail(new EmailDto()
-        //            .WithLocalPart("brucy")
-        //            .WithDomain("bat.net")
-        //            .WithComplete("brucy@bat.net"))
-        //        .WithPhoneNumber(new PhoneNumberDto()
-        //            .WithNumber("485212121")
-        //            .WithCountryCallingCode("+32"))
-        //        .WithAddress(new AddressDto()
-        //            .WithStreetName("Secretstreet")
-        //            .WithHouseNumber("841")
-        //            .WithPostalCode("1238")
-        //            .WithCountry("GothamCountry"));
+        [Fact]
+        public async Task CreateCustomer()
+        {
+            CustomerDto customerToCreate = CustomerDtoBuilder.CustomerDto()
+                .WithFirstname("Bruce")
+                .WithLastname("Wayne")
+                .WithEmail(new EmailDto()
+                    .WithLocalPart("brucy")
+                    .WithDomain("bat.net")
+                    .WithComplete("brucy@bat.net"))
+                .WithPhoneNumber(new PhoneNumberDto()
+                    .WithNumber("485212121")
+                    .WithCountryCallingCode("+32"))
+                .WithAddress(new AddressDto()
+                    .WithStreetName("Secretstreet")
+                    .WithHouseNumber("841")
+                    .WithPostalCode("1238")
+                    .WithCountry("Gotham"))
+                .Build();
 
-        //    var postRequest = new HttpRequestMessage(HttpMethod.Post, "api/customers")
-        //    {
-        //        Content = new StringContent(JsonConvert.SerializeObject(customerToCreate), Encoding.UTF8, "application/json")
-        //    };
+            var content = JsonConvert.SerializeObject(customerToCreate);
+            var stringContent = new StringContent(content, Encoding.UTF8, "application/json");
 
-        //    var response = await _client.SendAsync(postRequest);
+            var response = await _client.PostAsync("/api/customers", stringContent);
 
-        //    response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCode();
 
-        //    var responseString = await response.Content.ReadAsStringAsync();
-        //    var createdCustomer = JsonConvert.DeserializeObject<CustomerDto>(responseString);
+            var responseString = await response.Content.ReadAsStringAsync();
+            var createdCustomer = JsonConvert.DeserializeObject<CustomerDto>(responseString);
 
-        //    AssertCustomerIsEqualIgnoringId(customerToCreate, createdCustomer);
-        //    Assert.Equal(customerToCreate.Id, createdCustomer.Id);
-        //}
+            AssertCustomerIsEqualIgnoringId(customerToCreate, createdCustomer);
+        }
 
         //[Fact]
         //public void
@@ -88,7 +86,7 @@ namespace Order_api.integrationTests.Controllers.Customers
         //            .WithStreetName("Secretstreet")
         //            .WithHouseNumber("841")
         //            .WithPostalCode("1238")
-        //            .WithCountry("GothamCountry"));
+        //            .WithCountry("Gotham"));
 
         //    ControllerExceptionHandler.Error error = new TestRestTemplate()
         //        .postForObject(format("http://localhost:%s/%s", getPort(), CustomerController.RESOURCE_NAME),
@@ -148,8 +146,7 @@ namespace Order_api.integrationTests.Controllers.Customers
         private void AssertCustomerIsEqualIgnoringId(CustomerDto customerToCreate, CustomerDto createdCustomer)
         {
             Assert.False(string.IsNullOrWhiteSpace(createdCustomer.Id));
-
-            Assert.Equal(customerToCreate.Id, createdCustomer.Id);
+            
             Assert.Equal(customerToCreate.FirstName, createdCustomer.FirstName);
             Assert.Equal(customerToCreate.LastName, createdCustomer.LastName);
 

@@ -4,9 +4,9 @@ namespace Order_api.Controllers.Customers.Emails
 {
     public class EmailDto
     {
-        public string LocalPart { get; private set; }
-        public string Domain { get; private set; }
-        public string Complete { get; private set; }
+        public string LocalPart { get; set; }
+        public string Domain { get; set; }
+        public string Complete { get; set; }
         
         public EmailDto WithLocalPart(string localPart)
         {

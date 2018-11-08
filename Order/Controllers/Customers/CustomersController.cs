@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Order_service.Customers;
@@ -8,7 +9,7 @@ namespace Order_api.Controllers.Customers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class CustomersController
+    public class CustomersController : ControllerBase
     {
         private readonly CustomerService _customerService;
         private readonly CustomerMapper _customerMapper;
@@ -20,7 +21,7 @@ namespace Order_api.Controllers.Customers
         }
 
         [HttpPost]
-        public CustomerDto CreateCustomer([FromBody] CustomerDto customerDto)
+        public CustomerDto CreateCustomer([FromBody]CustomerDto customerDto)
         {
             return _customerMapper.ToDto(
                 _customerService.CreateCustomer(
@@ -30,11 +31,11 @@ namespace Order_api.Controllers.Customers
         [HttpGet]
         public List<CustomerDto> GetAllCustomers()
         {
-            return _customerService.GetAllCustomers().Select(x => _customerMapper.ToDto(x)).ToList();
+            return _customerService.GetAllCustomers().Select(customer => _customerMapper.ToDto(customer)).ToList();
         }
         
         [HttpGet("/{id}")]
-        public CustomerDto GetCustomer([FromRoute] string id)
+        public CustomerDto GetCustomer(string id)
         {
             return _customerMapper.ToDto(
                 _customerService.GetCustomer(new Guid(id)));

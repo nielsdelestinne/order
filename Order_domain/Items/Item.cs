@@ -57,7 +57,7 @@ namespace Order_domain.Items
             public Price Price { get; set; }
             public int AmountOfStock { get; set; }
 
-            public static ItemBuilder item()
+            public static ItemBuilder Item()
             {
                 return new ItemBuilder();
             }

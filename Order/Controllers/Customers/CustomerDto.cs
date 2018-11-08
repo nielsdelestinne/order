@@ -1,4 +1,5 @@
 ﻿using System;
+using Oder_infrastructure.builders;
 using Order_api.Controllers.Customers.Addresses;
 using Order_api.Controllers.Customers.Emails;
 using Order_api.Controllers.Customers.PhoneNumbers;
@@ -7,46 +8,74 @@ namespace Order_api.Controllers.Customers
 {
     public class CustomerDto
     {
-        public string Id { get; private set; }
-        public string FirstName { get; private set; }
-        public string LastName { get; private set; }
-        public EmailDto Email { get; private set; }
-        public AddressDto Address { get; private set; }
-        public PhoneNumberDto PhoneNumber { get; private set; }
+        public string Id { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public EmailDto Email { get; set; }
+        public AddressDto Address { get; set; }
+        public PhoneNumberDto PhoneNumber { get; set; }
+    }
 
-        public CustomerDto WithId(Guid id)
+    public class CustomerDtoBuilder : Builder<CustomerDto>
+    {
+        private Guid _id;
+        private string _firstName;
+        private string _lastName;
+        private EmailDto _email;
+        private AddressDto _address;
+        private PhoneNumberDto _phoneNumber;
+
+        public static CustomerDtoBuilder CustomerDto()
         {
-            Id = id.ToString("N");
+            return new CustomerDtoBuilder();
+        }
+
+        public override CustomerDto Build()
+        {
+            return new CustomerDto
+            {
+                Address = _address,
+                Email = _email,
+                FirstName = _firstName,
+                LastName = _lastName,
+                Id = _id.ToString("N"),
+                PhoneNumber = _phoneNumber
+            };
+        }
+
+        public CustomerDtoBuilder WithId(Guid id)
+        {
+            _id = id;
             return this;
         }
 
-        public CustomerDto WithFirstname(string firstname)
+        public CustomerDtoBuilder WithFirstname(string firstname)
         {
-            FirstName = firstname;
+            _firstName = firstname;
             return this;
         }
 
-        public CustomerDto WithLastname(string lastname)
+        public CustomerDtoBuilder WithLastname(string lastname)
         {
-            LastName = lastname;
+            _lastName = lastname;
             return this;
         }
 
-        public CustomerDto WithEmail(EmailDto email)
+        public CustomerDtoBuilder WithEmail(EmailDto email)
         {
-            Email = email;
+            _email = email;
             return this;
         }
 
-        public CustomerDto WithAddress(AddressDto address)
+        public CustomerDtoBuilder WithAddress(AddressDto address)
         {
-            Address = address;
+            _address = address;
             return this;
         }
 
-        public CustomerDto WithPhoneNumber(PhoneNumberDto phoneNumber)
+        public CustomerDtoBuilder WithPhoneNumber(PhoneNumberDto phoneNumber)
         {
-            PhoneNumber = phoneNumber;
+            _phoneNumber = phoneNumber;
             return this;
         }
     }

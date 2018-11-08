@@ -2,10 +2,10 @@
 {
     public class AddressDto
     {
-        public string StreetName { get; private set; }
-        public string HouseNumber { get; private set; }
-        public string PostalCode { get; private set; }
-        public string Country { get; private set; }
+        public string StreetName { get; set; }
+        public string HouseNumber { get; set; }
+        public string PostalCode { get; set; }
+        public string Country { get; set; }
 
         public AddressDto WithStreetName(string streetName)
         {
