@@ -20,7 +20,7 @@ namespace Order_service.Items
         {
             if (!_itemValidator.IsValidForCreation(item))
             {
-                _itemValidator.ThrowInvalidStateException(item, "creation");
+                _itemValidator.ThrowInvalidOperationException(item, "creation");
             }
             return _itemRepository.Save(item);
         }
@@ -29,7 +29,7 @@ namespace Order_service.Items
         {
             if (!_itemValidator.IsValidForUpdating(item))
             {
-                _itemValidator.ThrowInvalidStateException(item, "updating");
+                _itemValidator.ThrowInvalidOperationException(item, "updating");
             }
             return _itemRepository.Update(item);
         }

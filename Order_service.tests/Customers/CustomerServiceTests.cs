@@ -33,7 +33,7 @@ namespace Order_service.tests.Customers
         {
             Customer customer = CustomerTestBuilder.AnEmptyCustomer().Build();
 
-            Exception ex = Assert.Throws<Exception>(() => _customerService.CreateCustomer(customer));
+            Exception ex = Assert.Throws<InvalidOperationException>(() => _customerService.CreateCustomer(customer));
             Assert.Equal("Invalid Customer provided for creation. Provided object: Customer{id='" + customer.Id.ToString("N")
                                                                                                   + "', firstname='" + customer.FirstName
                                                                                                   + "', lastname='" + customer.LastName

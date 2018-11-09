@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Order\Order_api.csproj" />
+    <ProjectReference Include="..\Order_domain.tests\Order_domain.tests.csproj" />
   </ItemGroup>
 
 </Project>

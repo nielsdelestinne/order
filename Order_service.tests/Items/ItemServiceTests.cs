@@ -32,7 +32,7 @@ namespace Order_service.tests.Items
                 .WithName(string.Empty)
                 .Build();
 
-            Exception ex = Assert.Throws<Exception>(() => _itemService.CreateItem(item));
+            Exception ex = Assert.Throws<InvalidOperationException>(() => _itemService.CreateItem(item));
             Assert.Contains("Invalid Item provided for creation", ex.Message);
         }
 
@@ -53,7 +53,7 @@ namespace Order_service.tests.Items
                 .WithAmountOfStock(0)
                 .Build();
 
-            Exception ex = Assert.Throws<Exception>(() => _itemService.UpdateItem(item));
+            Exception ex = Assert.Throws<InvalidOperationException>(() => _itemService.UpdateItem(item));
             Assert.Contains("Invalid Item provided for updating", ex.Message);
         }
     }

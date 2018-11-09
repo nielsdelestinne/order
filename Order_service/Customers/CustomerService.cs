@@ -20,7 +20,7 @@ namespace Order_service.Customers
         {
             if (!_customerValidator.IsValidForCreation(customer))
             {
-                _customerValidator.ThrowInvalidStateException(customer, "creation");
+                _customerValidator.ThrowInvalidOperationException(customer, "creation");
             }
             return _customerRepository.Save(customer);
         }

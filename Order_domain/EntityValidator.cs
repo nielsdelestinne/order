@@ -32,10 +32,9 @@ namespace Order_domain
             return obj != null;
         }
 
-        public void ThrowInvalidStateException(T entity, string type)
+        public void ThrowInvalidOperationException(T entity, string type)
         {
-            //IllegalStateException
-            throw new Exception("Invalid " + (entity == null ? "NULL_ENTITY" : entity.GetType().Name)
+            throw new InvalidOperationException("Invalid " + (entity == null ? "NULL_ENTITY" : entity.GetType().Name)
                                                        + " provided for " + type + ". Provided object: " + (entity == null ? null : entity.ToString()));
         }
     }

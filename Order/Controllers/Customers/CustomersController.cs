@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
@@ -34,8 +35,8 @@ namespace Order_api.Controllers.Customers
             return _customerService.GetAllCustomers().Select(customer => _customerMapper.ToDto(customer)).ToList();
         }
         
-        [HttpGet("/{id}")]
-        public CustomerDto GetCustomer(string id)
+        [HttpGet("{id}")]
+        public CustomerDto GetCustomer([FromRoute]string id)
         {
             return _customerMapper.ToDto(
                 _customerService.GetCustomer(new Guid(id)));

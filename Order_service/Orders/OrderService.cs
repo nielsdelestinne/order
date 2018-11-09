@@ -104,7 +104,7 @@ namespace Order_service.Orders
         {
             if (!_orderValidator.IsValidForCreation(order))
             {
-                _orderValidator.ThrowInvalidStateException(order, "creation");
+                _orderValidator.ThrowInvalidOperationException(order, "creation");
             }
         }
 
