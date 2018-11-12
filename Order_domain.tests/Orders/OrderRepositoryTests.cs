@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Order_domain.Orders;
 using Xunit;
 
@@ -27,7 +28,7 @@ namespace Order_domain.tests.Orders
             
             _orderDatabase.Populate(order1, order2, order3);
 
-            List<Order> ordersForCustomer = _orderRepository.GetOrdersForCustomer(customerId);
+            List<Order> ordersForCustomer = _orderRepository.GetOrdersForCustomer(customerId).ToList();
 
             Assert.Contains(order1, ordersForCustomer);
             Assert.Contains(order3, ordersForCustomer);

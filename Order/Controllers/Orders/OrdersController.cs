@@ -12,10 +12,10 @@ namespace Order_api.Controllers.Orders
     [Route("api/[controller]")]
     public class OrdersController : ControllerBase
     {
-        private readonly OrderService _orderService;
+        private readonly IOrderService _orderService;
         private readonly OrderMapper _orderMapper;
 
-        public OrdersController(OrderService orderService, OrderMapper orderMapper)
+        public OrdersController(IOrderService orderService, OrderMapper orderMapper)
         {
             _orderService = orderService;
             _orderMapper = orderMapper;
@@ -48,7 +48,7 @@ namespace Order_api.Controllers.Orders
         public OrdersReportDto GetOrdersForCustomerReport([FromRoute] string customerId)
         {
             return _orderMapper.ToOrdersReportDto(
-                _orderService.GetOrdersForCustomer(new Guid(customerId)));
+                _orderService.GetOrdersForCustomer(new Guid(customerId)).ToList());
         }
     }
 }

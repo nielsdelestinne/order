@@ -5,12 +5,12 @@ using Order_domain.Items;
 
 namespace Order_service.Items
 {
-    public class ItemService
+    public class ItemService : IItemService
     {
-        private readonly ItemRepository _itemRepository;
+        private readonly IItemRepository _itemRepository;
         private readonly ItemValidator _itemValidator;
 
-        public ItemService(ItemRepository itemRepository, ItemValidator itemValidator)
+        public ItemService(IItemRepository itemRepository, ItemValidator itemValidator)
         {
             _itemRepository = itemRepository;
             _itemValidator = itemValidator;

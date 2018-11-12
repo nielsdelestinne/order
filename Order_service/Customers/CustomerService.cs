@@ -5,12 +5,12 @@ using Order_domain.Customers;
 
 namespace Order_service.Customers
 {
-    public class CustomerService
+    public class CustomerService : ICustomerService
     {
-        private readonly CustomerRepository _customerRepository;
+        private readonly ICustomerRepository _customerRepository;
         private readonly CustomerValidator _customerValidator;
         
-        public CustomerService(CustomerRepository customerRepository, CustomerValidator customerValidator)
+        public CustomerService(ICustomerRepository customerRepository, CustomerValidator customerValidator)
         {
             _customerRepository = customerRepository;
             _customerValidator = customerValidator;

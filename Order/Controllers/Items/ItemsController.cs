@@ -10,10 +10,10 @@ namespace Order_api.Controllers.Items
     [Route("api/[controller]")]
     public class ItemsController : ControllerBase
     {
-        private readonly ItemService _itemService;
+        private readonly IItemService _itemService;
         private readonly ItemMapper _itemMapper;
 
-        public ItemsController(ItemService itemService, ItemMapper itemMapper)
+        public ItemsController(IItemService itemService, ItemMapper itemMapper)
         {
             _itemService = itemService;
             _itemMapper = itemMapper;

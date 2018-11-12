@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Order_service.Customers;
@@ -12,10 +10,10 @@ namespace Order_api.Controllers.Customers
     [Route("api/[controller]")]
     public class CustomersController : ControllerBase
     {
-        private readonly CustomerService _customerService;
+        private readonly ICustomerService _customerService;
         private readonly CustomerMapper _customerMapper;
 
-        public CustomersController(CustomerService customerService, CustomerMapper customerMapper)
+        public CustomersController(ICustomerService customerService, CustomerMapper customerMapper)
         {
             _customerService = customerService;
             _customerMapper = customerMapper;

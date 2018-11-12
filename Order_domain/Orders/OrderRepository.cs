@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Order_domain.Orders
 {
-    public class OrderRepository : Repository<Order, OrderDatabase>
+    public class OrderRepository : Repository<Order, OrderDatabase>, IOrderRepository
     {
 
         //private ApplicationEventPublisher eventPublisher;
@@ -21,7 +21,7 @@ namespace Order_domain.Orders
             return savedOrder;
         }
 
-        public List<Order> GetOrdersForCustomer(Guid customerId)
+        public IEnumerable<Order> GetOrdersForCustomer(Guid customerId)
         {
             return Database.GetAll().Where(x => x.Value.CustomerId == customerId).Select(x => x.Value).ToList();
         }

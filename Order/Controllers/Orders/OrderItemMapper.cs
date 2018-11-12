@@ -12,9 +12,9 @@ namespace Order_api.Controllers.Orders
 {
     public class OrderItemMapper : Mapper<ItemGroupDto, OrderItem>
     {
-        private readonly ItemService _itemService;
+        private readonly IItemService _itemService;
 
-        public OrderItemMapper(ItemService itemService)
+        public OrderItemMapper(IItemService itemService)
         {
             _itemService = itemService;
         }

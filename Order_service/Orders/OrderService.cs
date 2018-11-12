@@ -9,16 +9,16 @@ using Order_domain.Orders.OrderItems;
 
 namespace Order_service.Orders
 {
-    public class OrderService
+    public class OrderService : IOrderService
     {
-        private readonly CustomerRepository _customerRepository;
-        private readonly ItemRepository _itemRepository;
-        private readonly OrderRepository _orderRepository;
+        private readonly ICustomerRepository _customerRepository;
+        private readonly IItemRepository _itemRepository;
+        private readonly IOrderRepository _orderRepository;
         private readonly OrderValidator _orderValidator;
 
-        public OrderService(CustomerRepository customerRepository,
-                        ItemRepository itemRepository,
-                        OrderRepository orderRepository,
+        public OrderService(ICustomerRepository customerRepository,
+                        IItemRepository itemRepository,
+                        IOrderRepository orderRepository,
                         OrderValidator orderValidator)
         {
             _customerRepository = customerRepository;
@@ -35,7 +35,7 @@ namespace Order_service.Orders
             return _orderRepository.Save(order);
         }
 
-        public List<Order> GetOrdersForCustomer(Guid customerId)
+        public IEnumerable<Order> GetOrdersForCustomer(Guid customerId)
         {
             return _orderRepository.GetOrdersForCustomer(customerId);
         }
@@ -57,7 +57,7 @@ namespace Order_service.Orders
                 return GetOrdersOnlyContainingOrderItemsShippingToday();
             }
 
-            return _orderRepository.GetAll().Select(x => x.Value);
+            return _orderRepository.GetAll().Select(order => order.Value);
         }
 
         private IEnumerable<Order> GetOrdersOnlyContainingOrderItemsShippingToday()
@@ -84,7 +84,7 @@ namespace Order_service.Orders
 
         private bool DoAllOrderItemsReferenceAnExistingItem(IEnumerable<OrderItem> orderItems)
         {
-            return orderItems.Any(orderItem => _itemRepository.Get(orderItem.ItemId) == null);
+            return orderItems.All(orderItem => _itemRepository.Get(orderItem.ItemId) != null);
         }
 
         private void AssertOrderingCustomerExists(Order order)

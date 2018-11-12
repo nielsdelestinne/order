@@ -14,9 +14,9 @@ namespace Order_api.Controllers.Orders
     {
         private readonly OrderItemMapper _orderItemMapper;
         private readonly AddressMapper _addressMapper;
-        private readonly CustomerService _customerService;
+        private readonly ICustomerService _customerService;
 
-        public OrderMapper(OrderItemMapper orderItemMapper, AddressMapper addressMapper, CustomerService customerService)
+        public OrderMapper(OrderItemMapper orderItemMapper, AddressMapper addressMapper, ICustomerService customerService)
         {
             _orderItemMapper = orderItemMapper;
             _addressMapper = addressMapper;
