@@ -37,14 +37,14 @@ namespace Order_api.Controllers.Orders
                     _orderMapper.ToDomain(orderDto)));
         }
 
-        [HttpPost("/{id}/reorder")]
+        [HttpPost("{id}/reorder")]
         public OrderAfterCreationDto ReorderOrder([FromRoute] string id)
         {
             return _orderMapper.ToOrderAfterCreationDto(
                 _orderService.ReorderOrder(new Guid(id)));
         }
 
-        [HttpGet("/customers/{customerId}")]
+        [HttpGet("forCustomer/{customerId}")]
         public OrdersReportDto GetOrdersForCustomerReport([FromRoute] string customerId)
         {
             return _orderMapper.ToOrdersReportDto(
