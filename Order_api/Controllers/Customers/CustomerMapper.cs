@@ -35,7 +35,7 @@ namespace Order_api.Controllers.Customers
         public override Customer ToDomain(CustomerDto customerDto)
         {
             return Customer.CustomerBuilder.Customer()
-                .WithId(string.IsNullOrWhiteSpace(customerDto.Id) ? Guid.Empty : new Guid(customerDto.Id))
+                .WithId(Guid.Empty)
                 .WithLastname(customerDto.LastName)
                 .WithFirstname(customerDto.FirstName)
                 .WithAddress(_addressMapper.ToDomain(customerDto.Address))

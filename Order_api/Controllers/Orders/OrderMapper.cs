@@ -39,6 +39,7 @@ namespace Order_api.Controllers.Orders
         public Order ToDomain(OrderCreationDto orderCreationDto)
         {
             return Order.OrderBuilder.Order()
+                    .WithId(Guid.Empty)
                     .WithCustomerId(new Guid(orderCreationDto.CustomerId))
                     .WithOrderItems(orderCreationDto.ItemGroups.Select(group => _orderItemMapper.ToDomain(group)))
                     .Build();

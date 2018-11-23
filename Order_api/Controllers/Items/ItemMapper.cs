@@ -30,7 +30,7 @@ namespace Order_api.Controllers.Items
         public override Item ToDomain(ItemDto itemDto)
         {
             return Item.ItemBuilder.Item()
-                .WithId(string.IsNullOrWhiteSpace(itemDto.Id) ? Guid.Empty : new Guid(itemDto.Id))
+                .WithId(Guid.Empty)
                 .WithName(itemDto.Name)
                 .WithDescription(itemDto.Description)
                 .WithAmountOfStock(itemDto.AmountOfStock)

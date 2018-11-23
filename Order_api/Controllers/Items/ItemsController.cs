@@ -27,6 +27,13 @@ namespace Order_api.Controllers.Items
                     _itemMapper.ToDomain(itemDto)));
         }
 
+        [HttpGet("{id}")]
+        public ItemDto GetItemById([FromRoute] string id)
+        {
+            return _itemMapper.ToDto(
+                _itemService.GetItem(new Guid(id)));
+        }
+
         [HttpPut("{id}")]
         public ItemDto UpdateItem([FromRoute] string id, [FromBody] ItemDto itemDto)
         {
