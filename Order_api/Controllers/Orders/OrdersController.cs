@@ -29,6 +29,14 @@ namespace Order_api.Controllers.Orders
                 .ToList();
         }
 
+        [HttpGet("{id}")]
+        public OrderDto GetAllOrders([FromRoute] string id)
+        {
+            return _orderMapper.ToDto(
+                    _orderService.GetAllOrders(false)
+                    .First(order => order.Id.Equals(new Guid(id))));
+        }
+
         [HttpPost]
         public OrderAfterCreationDto CreateOrder([FromBody] OrderCreationDto orderDto)
         {
