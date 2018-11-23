@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using Oder_infrastructure.Logging;
+using Order_infrastructure.Logging;
 
-namespace Oder_infrastructure.Exceptions
+namespace Order_infrastructure.Exceptions
 {
     public class ErrorHandlingMiddleware
     {

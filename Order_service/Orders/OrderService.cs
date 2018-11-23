@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Oder_infrastructure.Exceptions;
+using Order_infrastructure.Exceptions;
 using Order_domain.Customers;
 using Order_domain.Items;
 using Order_domain.Orders;

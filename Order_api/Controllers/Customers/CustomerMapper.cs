@@ -1,5 +1,5 @@
 ﻿using System;
-using Oder_infrastructure.dto;
+using Order_infrastructure.dto;
 using Order_api.Controllers.Customers.Addresses;
 using Order_api.Controllers.Customers.Emails;
 using Order_api.Controllers.Customers.PhoneNumbers;

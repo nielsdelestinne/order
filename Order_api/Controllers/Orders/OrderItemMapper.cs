@@ -1,6 +1,6 @@
 ﻿using System;
-using Oder_infrastructure.dto;
-using Oder_infrastructure.Exceptions;
+using Order_infrastructure.dto;
+using Order_infrastructure.Exceptions;
 using Order_api.Controllers.Orders.Dtos;
 using Order_api.Controllers.Orders.Dtos.Reports;
 using Order_domain.Items;

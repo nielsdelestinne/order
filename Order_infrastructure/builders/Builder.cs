@@ -1,4 +1,4 @@
-﻿namespace Oder_infrastructure.builders
+﻿namespace Order_infrastructure.builders
 {
     public abstract class Builder<T>
     {

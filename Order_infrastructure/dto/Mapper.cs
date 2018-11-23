@@ -1,4 +1,4 @@
-﻿namespace Oder_infrastructure.dto
+﻿namespace Order_infrastructure.dto
 {
     public abstract class Mapper<DTO, DOMAIN>
     {

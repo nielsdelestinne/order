@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Oder_infrastructure.Exceptions
+namespace Order_infrastructure.Exceptions
 {
     public class EntityNotValidException : Exception
     {

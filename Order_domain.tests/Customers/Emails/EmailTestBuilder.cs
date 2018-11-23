@@ -1,4 +1,4 @@
-﻿using Oder_infrastructure.builders;
+﻿using Order_infrastructure.builders;
 using Order_domain.Customers.Emails;
 
 namespace Order_domain.tests.Customers.Emails

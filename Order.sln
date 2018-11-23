@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2041
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Order_api", "Order\Order_api.csproj", "{BE49F850-60ED-4E36-8936-B06272F58590}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Order_api", "Order_api\Order_api.csproj", "{BE49F850-60ED-4E36-8936-B06272F58590}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Order_domain", "Order_domain\Order_domain.csproj", "{3F439088-16AD-453C-BA61-0F8C63A1539C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Oder_infrastructure", "Oder_infrastructure\Oder_infrastructure.csproj", "{4786F094-97B0-454B-A32B-4D0A79B9BC48}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Order_infrastructure", "Order_infrastructure\Order_infrastructure.csproj", "{4786F094-97B0-454B-A32B-4D0A79B9BC48}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Order_service", "Order_service\Order_service.csproj", "{50B8A3E8-BFFC-43ED-A21A-6584D8963094}"
 EndProject

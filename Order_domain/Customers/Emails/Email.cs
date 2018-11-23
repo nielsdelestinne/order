@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Oder_infrastructure.builders;
+using Order_infrastructure.builders;
 
 namespace Order_domain.Customers.Emails
 {

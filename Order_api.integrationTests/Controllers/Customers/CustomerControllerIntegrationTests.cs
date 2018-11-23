@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Newtonsoft.Json;
-using Oder_infrastructure.Exceptions;
+using Order_infrastructure.Exceptions;
 using Order_api.Controllers.Customers;
 using Order_api.Controllers.Customers.Addresses;
 using Order_api.Controllers.Customers.Emails;

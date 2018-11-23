@@ -1,8 +1,8 @@
 ﻿using System;
-using Oder_infrastructure.builders;
 using Order_domain.Customers.Addresses;
 using Order_domain.Customers.Emails;
 using Order_domain.Customers.PhoneNumbers;
+using Order_infrastructure.builders;
 
 namespace Order_domain.Customers
 {
