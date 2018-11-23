@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using Order_domain.Customers.Addresses;
 using Order_domain.Customers.Emails;
 using Order_domain.Customers.PhoneNumbers;
+using Order_domain.Orders;
 using Order_infrastructure.builders;
 
 namespace Order_domain.Customers
@@ -14,6 +16,8 @@ namespace Order_domain.Customers
 
         public Address Address { get; set; }
         public PhoneNumber PhoneNumber { get; set; }
+
+        public IList<Order> Orders { get; set; }
 
         public Customer(CustomerBuilder customerBuilder)
             :base(customerBuilder.Id)

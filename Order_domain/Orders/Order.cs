@@ -4,13 +4,16 @@ using System.Linq;
 using Order_infrastructure.builders;
 using Order_domain.Items.Prices;
 using Order_domain.Orders.OrderItems;
+using Order_domain.Customers;
 
 namespace Order_domain.Orders
 {
     public sealed class Order : Entity
     {
         public IEnumerable<OrderItem> OrderItems { get; set; }
+
         public Guid CustomerId { get; set; }
+        public Customer Customer { get; set; }
         
         public Order(OrderBuilder orderBuilder)
             :base(orderBuilder.Id)

@@ -1,12 +1,15 @@
 ﻿using System;
 using Order_infrastructure.builders;
 using Order_domain.Items.Prices;
+using Order_domain.Items;
 
 namespace Order_domain.Orders.OrderItems
 {
     public sealed class OrderItem
     {
+        public Item Item { get; set; }
         public Guid ItemId { get; set; }
+
         public Price ItemPrice { get; set; }
         public int OrderedAmount { get; set; }
         public DateTime ShippingDate { get; set; }

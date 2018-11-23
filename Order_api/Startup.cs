@@ -14,6 +14,7 @@ using Order_api.Controllers.Customers.Emails;
 using Order_api.Controllers.Customers.PhoneNumbers;
 using Order_api.Controllers.Items;
 using Order_api.Controllers.Orders;
+using Order_domain;
 using Order_domain.Customers;
 using Order_domain.Items;
 using Order_domain.Orders;
@@ -38,6 +39,8 @@ namespace Order_api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddDbContext<DatabaseContext>();
 
             services.AddTransient<AddressMapper>();
             services.AddTransient<EmailMapper>();
