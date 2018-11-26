@@ -5,18 +5,13 @@ using Xunit;
 
 namespace Order_domain.tests
 {
-    public class RepositoryIntegrationTest : IDisposable
+    public class RepositoryIntegrationTest
     {
-        private readonly Repository<Customer, CustomerDatabase> _repository;
+        private readonly IRepository<Customer> _repository;
 
         public RepositoryIntegrationTest()
         {
-            _repository = new CustomerRepository(new CustomerDatabase());
-        }
-        
-        public void Dispose()
-        {
-            _repository.Reset();
+            _repository = new CustomerRepository(null);
         }
 
         [Fact]
@@ -71,8 +66,8 @@ namespace Order_domain.tests
 
             var customers = _repository.GetAll();
 
-            Assert.True(customers.ContainsValue(customer1));
-            Assert.True(customers.ContainsValue(customer2));
+            Assert.True(customers.Contains(customer1));
+            Assert.True(customers.Contains(customer2));
         }
     }
 }

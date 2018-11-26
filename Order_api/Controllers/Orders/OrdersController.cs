@@ -30,7 +30,7 @@ namespace Order_api.Controllers.Orders
         }
 
         [HttpGet("{id}")]
-        public OrderDto GetAllOrders([FromRoute] string id)
+        public OrderDto GetOrderById([FromRoute] string id)
         {
             return _orderMapper.ToDto(
                     _orderService.GetAllOrders(false)

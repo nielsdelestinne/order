@@ -21,6 +21,8 @@ using Order_domain.Orders;
 using Order_service.Customers;
 using Order_service.Items;
 using Order_service.Orders;
+using Order_domain.Orders.OrderItems;
+using Order_domain.OrderItems;
 
 namespace Order_api
 {
@@ -54,17 +56,15 @@ namespace Order_api
             services.AddTransient<ItemValidator>();
             services.AddTransient<OrderValidator>();
 
-            services.AddSingleton<ICustomerService, CustomerService>();
-            services.AddSingleton<ICustomerRepository, CustomerRepository>();
-            services.AddSingleton<CustomerDatabase>();
+            services.AddScoped<ICustomerService, CustomerService>();
+            services.AddScoped<IRepository<Customer>, CustomerRepository>();
 
-            services.AddSingleton<IItemService, ItemService>();
-            services.AddSingleton<IItemRepository, ItemRepository>();
-            services.AddSingleton<ItemDatabase>();
+            services.AddScoped<IItemService, ItemService>();
+            services.AddScoped<IRepository<Item>, ItemRepository>();
 
-            services.AddSingleton<IOrderService, OrderService>();
-            services.AddSingleton<IOrderRepository, OrderRepository>();
-            services.AddSingleton<OrderDatabase>();
+            services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IRepository<Order>, OrderRepository>();
+            services.AddScoped<IRepository<OrderItem>, OrderItemRepository>();
 
             services.AddSwagger();
         }

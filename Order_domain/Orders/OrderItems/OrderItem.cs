@@ -5,19 +5,25 @@ using Order_domain.Items;
 
 namespace Order_domain.Orders.OrderItems
 {
-    public sealed class OrderItem
+    public class OrderItem : Entity
     {
         public Item Item { get; set; }
         public Guid ItemId { get; set; }
 
-        public Price ItemPrice { get; set; }
+        public Guid OrderId { get; set; }
+        public Order Order { get; set; }
+
+        public decimal ItemPrice { get; set; }
         public int OrderedAmount { get; set; }
         public DateTime ShippingDate { get; set; }
 
+        private OrderItem(): base(Guid.Empty) { }
+
         public OrderItem(OrderItemBuilder orderItemBuilder)
+            : base(orderItemBuilder.Id)
         {
             ItemId = orderItemBuilder.ItemId;
-            ItemPrice = orderItemBuilder.ItemPrice;
+            ItemPrice = orderItemBuilder.ItemPrice.Amount;
             OrderedAmount = orderItemBuilder.OrderedAmount;
             ShippingDate = CalculateShippingDate(orderItemBuilder.AvailableItemStock);
         }
@@ -33,7 +39,7 @@ namespace Order_domain.Orders.OrderItems
 
         public Price GetTotalPrice()
         {
-            return Price.Create(ItemPrice.Amount * OrderedAmount);
+            return Price.Create(ItemPrice * OrderedAmount);
         }
 
         public override string ToString()
@@ -47,6 +53,7 @@ namespace Order_domain.Orders.OrderItems
 
         public sealed class OrderItemBuilder : Builder<OrderItem>
         {
+            public Guid Id { get; set; }
             public Guid ItemId { get; set; }
             public Price ItemPrice { get; set; }
             public int OrderedAmount { get; set; }
@@ -60,6 +67,12 @@ namespace Order_domain.Orders.OrderItems
             public override OrderItem Build()
             {
                 return new OrderItem(this);
+            }
+
+            public OrderItemBuilder WithId(Guid id)
+            {
+                Id = id;
+                return this;
             }
 
             public OrderItemBuilder WithItemId(Guid itemId)

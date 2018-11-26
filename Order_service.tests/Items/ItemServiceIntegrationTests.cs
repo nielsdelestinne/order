@@ -8,20 +8,15 @@ using Xunit;
 
 namespace Order_service.tests.Items
 {
-    public class ItemServiceIntegrationTests : IDisposable
+    public class ItemServiceIntegrationTests
     {
         private readonly ItemService _itemService;
         private readonly ItemRepository _itemRepository;
 
         public ItemServiceIntegrationTests()
         {
-            _itemRepository = new ItemRepository(new ItemDatabase());
+            _itemRepository = new ItemRepository(null);
             _itemService = new ItemService(_itemRepository, new ItemValidator());
-        }
-
-        public void Dispose()
-        {
-            _itemRepository.Reset();
         }
 
         [Fact]

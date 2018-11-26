@@ -8,19 +8,14 @@ namespace Order_domain
 
         protected Entity(Guid id)
         {
-            Id = id;
-        }
-
-        public void GenerateId()
-        {
-            if (Id != Guid.Empty)
+            if(!Guid.Empty.Equals(id))
             {
-                //IllegalStateException
-                throw new Exception("Generating an ID for a customer that already has " +
-                                                "an ID (" + Id + ") is not allowed.");
+                Id = id;
+            } else
+            {
+                Id = Guid.NewGuid();
             }
-
-            Id = Guid.NewGuid();
         }
+
     }
 }

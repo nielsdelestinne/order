@@ -12,7 +12,7 @@ namespace Order_service.tests.Items
 
         public ItemServiceTests()
         {
-            _itemService = new ItemService(new ItemRepository(new ItemDatabase()), new ItemValidator());
+            _itemService = new ItemService(new ItemRepository(null), new ItemValidator());
         }
 
         [Fact]

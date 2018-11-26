@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Order_domain;
 using Order_domain.Items;
 
 namespace Order_service.Items
 {
     public class ItemService : IItemService
     {
-        private readonly IItemRepository _itemRepository;
+        private readonly IRepository<Item> _itemRepository;
         private readonly ItemValidator _itemValidator;
 
-        public ItemService(IItemRepository itemRepository, ItemValidator itemValidator)
+        public ItemService(IRepository<Item> itemRepository, ItemValidator itemValidator)
         {
             _itemRepository = itemRepository;
             _itemValidator = itemValidator;
@@ -48,7 +49,7 @@ namespace Order_service.Items
 
         public IEnumerable<Item> GetAllItems()
         {
-            return _itemRepository.GetAll().Select(x => x.Value);
+            return _itemRepository.GetAll();
         }
     }
 }

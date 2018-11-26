@@ -5,8 +5,10 @@ namespace Order_domain.Customers.PhoneNumbers
 {
     public class PhoneNumber
     {
-        public string Number { get; set; }
-        public string CountryCallingCode { get; set; }
+        public string Number { get; private set; }
+        public string CountryCallingCode { get; private set; }
+
+        private PhoneNumber() { }
 
         private PhoneNumber(PhoneNumberBuilder phoneNumberBuilder)
         {

@@ -7,7 +7,7 @@ namespace Order_domain
     {
         public bool IsValidForCreation(T entity)
         {
-            return !IsAFieldEmptyOrNull(entity) && entity.Id == Guid.Empty;
+            return !IsAFieldEmptyOrNull(entity);
         }
 
         public bool IsValidForUpdating(T entity)

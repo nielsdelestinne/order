@@ -13,7 +13,7 @@ namespace Order_service.tests.Customers
 
         public CustomerServiceTests()
         {
-            _customerRepository = new CustomerRepository(new CustomerDatabase());
+            _customerRepository = new CustomerRepository(null);
             _customerService = new CustomerService(_customerRepository, new CustomerValidator());
         }
 

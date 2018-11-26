@@ -25,24 +25,35 @@ namespace Order_domain
         {
             modelBuilder
                 .Entity<Customer>()
-                    .HasMany(customer => customer.Orders);
+                    .OwnsOne(customer => customer.PhoneNumber);
+            modelBuilder
+                .Entity<Customer>()
+                    .OwnsOne(customer => customer.Address);
+            modelBuilder
+                .Entity<Customer>()
+                    .OwnsOne(customer => customer.Email);
+            
 
             modelBuilder
                 .Entity<Order>()
-                    .HasMany(order => order.OrderItems);
-
+                    .HasMany(order => order.OrderItems)
+                    .WithOne(orderItem => orderItem.Order)
+                    .HasForeignKey(orderItem => orderItem.OrderId);
             modelBuilder
                 .Entity<Order>()
                     .HasOne(order => order.Customer)
-                        .WithMany(customer => customer.Orders)
-                            .HasForeignKey(order => order.CustomerId);
+                    .WithMany(customer => customer.Orders)
+                    .HasForeignKey(order => order.CustomerId);
 
             modelBuilder
                 .Entity<OrderItem>()
                     .HasOne(orderItem => orderItem.Item)
-                        .WithMany()
-                            .HasForeignKey(orderItem => orderItem.ItemId);
-                    
+                    .WithMany()
+                    .HasForeignKey(orderItem => orderItem.ItemId);
+
+            modelBuilder
+                .Entity<Item>()
+                    .OwnsOne(item => item.Price);
         }
     }
 }

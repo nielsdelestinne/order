@@ -7,20 +7,15 @@ using Xunit;
 
 namespace Order_service.tests.Customers
 {
-    public class CustomerServiceIntegrationTests : IDisposable
+    public class CustomerServiceIntegrationTests
     {
         private readonly CustomerRepository _customerRepository;
         private readonly CustomerService _customerService;
 
         public CustomerServiceIntegrationTests()
         {
-            _customerRepository = new CustomerRepository(new CustomerDatabase());
+            _customerRepository = new CustomerRepository(null);
             _customerService = new CustomerService(_customerRepository, new CustomerValidator());
-        }
-
-        public void Dispose()
-        {
-            _customerRepository.Reset();
         }
 
         [Fact]

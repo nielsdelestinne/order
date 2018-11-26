@@ -19,6 +19,8 @@ namespace Order_domain.Customers
 
         public IList<Order> Orders { get; set; }
 
+        private Customer() : base(Guid.Empty) { }
+
         public Customer(CustomerBuilder customerBuilder)
             :base(customerBuilder.Id)
         {

@@ -41,7 +41,7 @@ namespace Order_api.Controllers.Orders
             return Order.OrderBuilder.Order()
                     .WithId(Guid.Empty)
                     .WithCustomerId(new Guid(orderCreationDto.CustomerId))
-                    .WithOrderItems(orderCreationDto.ItemGroups.Select(group => _orderItemMapper.ToDomain(group)))
+                    .WithOrderItems(orderCreationDto.ItemGroups.Select(group => _orderItemMapper.ToDomain(group)).ToList())
                     .Build();
         }
 

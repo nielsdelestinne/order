@@ -6,24 +6,28 @@ using Order_domain.Customers;
 using Order_domain.Items;
 using Order_domain.Orders;
 using Order_domain.Orders.OrderItems;
+using Order_domain;
 
 namespace Order_service.Orders
 {
     public class OrderService : IOrderService
     {
-        private readonly ICustomerRepository _customerRepository;
-        private readonly IItemRepository _itemRepository;
-        private readonly IOrderRepository _orderRepository;
+        private readonly IRepository<Customer> _customerRepository;
+        private readonly IRepository<Item> _itemRepository;
+        private readonly IRepository<Order> _orderRepository;
+        private readonly IRepository<OrderItem> _orderItemRepository;
         private readonly OrderValidator _orderValidator;
 
-        public OrderService(ICustomerRepository customerRepository,
-                        IItemRepository itemRepository,
-                        IOrderRepository orderRepository,
+        public OrderService(IRepository<Customer> customerRepository,
+                        IRepository<Item> itemRepository,
+                        IRepository<Order> orderRepository,
+                        IRepository<OrderItem> orderItemRepository,
                         OrderValidator orderValidator)
         {
             _customerRepository = customerRepository;
             _itemRepository = itemRepository;
             _orderRepository = orderRepository;
+            _orderItemRepository = orderItemRepository;
             _orderValidator = orderValidator;
         }
 
@@ -32,12 +36,17 @@ namespace Order_service.Orders
             AssertOrderIsValidForCreation(order);
             AssertOrderingCustomerExists(order);
             AssertAllOrderedItemsExist(order);
+            foreach (var orderItem in order.OrderItems)
+            {
+                orderItem.OrderId = order.Id;
+                _orderItemRepository.Save(orderItem);
+            }
             return _orderRepository.Save(order);
         }
 
         public IEnumerable<Order> GetOrdersForCustomer(Guid customerId)
         {
-            return _orderRepository.GetOrdersForCustomer(customerId);
+            return ((OrderRepository) (_orderRepository)).GetOrdersForCustomer(customerId);
         }
 
         public Order ReorderOrder(Guid orderId)
@@ -46,7 +55,7 @@ namespace Order_service.Orders
             AssertCustomerIsOwnerOfOrderToReorder(orderId, orderToReorder);
             return _orderRepository.Save(Order.OrderBuilder.Order()
                     .WithCustomerId(orderToReorder.CustomerId)
-                    .WithOrderItems(CopyOrderItemsWithRecentPrice(orderToReorder.OrderItems))
+                    .WithOrderItems(CopyOrderItemsWithRecentPrice(orderToReorder.OrderItems).ToList())
                     .Build());
         }
 
@@ -57,16 +66,15 @@ namespace Order_service.Orders
                 return GetOrdersOnlyContainingOrderItemsShippingToday();
             }
 
-            return _orderRepository.GetAll().Select(order => order.Value);
+            return _orderRepository.GetAll();
         }
 
         private IEnumerable<Order> GetOrdersOnlyContainingOrderItemsShippingToday()
         {
             return _orderRepository.GetAll()
-                                   .Select(x => x.Value)
                                    .Select(order => Order.OrderBuilder.Order().WithCustomerId(order.CustomerId)
                                                                           .WithId(order.Id)
-                                                                          .WithOrderItems(GetOrderItemsShippingToday(order)).Build());
+                                                                          .WithOrderItems(GetOrderItemsShippingToday(order).ToList()).Build());
         }
 
         private IEnumerable<OrderItem> GetOrderItemsShippingToday(Order order)

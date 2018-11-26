@@ -10,11 +10,13 @@ namespace Order_domain.Orders
 {
     public sealed class Order : Entity
     {
-        public IEnumerable<OrderItem> OrderItems { get; set; }
+        public IList<OrderItem> OrderItems { get; set; }
 
         public Guid CustomerId { get; set; }
         public Customer Customer { get; set; }
-        
+
+        private Order() : base(Guid.Empty) { }
+
         public Order(OrderBuilder orderBuilder)
             :base(orderBuilder.Id)
         {
@@ -42,7 +44,7 @@ namespace Order_domain.Orders
         public class OrderBuilder : Builder<Order>
         {
             public Guid Id { get; set; }
-            public IEnumerable<OrderItem> OrderItems { get; set; }
+            public IList<OrderItem> OrderItems { get; set; }
             public Guid CustomerId { get; set; }
             
             public static OrderBuilder Order()
@@ -61,7 +63,7 @@ namespace Order_domain.Orders
                 return this;
             }
 
-            public OrderBuilder WithOrderItems(IEnumerable<OrderItem> orderItems)
+            public OrderBuilder WithOrderItems(IList<OrderItem> orderItems)
             {
                 OrderItems = orderItems;
                 return this;

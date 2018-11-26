@@ -20,7 +20,7 @@ namespace Order_service.Orders
             return IsNull(orderItem.ItemId) ||
                    IsNull(orderItem.ItemPrice) ||
                    IsNull(orderItem.ShippingDate) ||
-                   orderItem.ItemPrice.GetAmountAsFloat() <= 0 ||
+                   (float)orderItem.ItemPrice <= 0 ||
                    orderItem.OrderedAmount <= 0;
         }
     }
