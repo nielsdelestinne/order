@@ -1,4 +1,6 @@
-﻿namespace Order_api.Controllers.Orders.Dtos.Reports
+﻿using System;
+
+namespace Order_api.Controllers.Orders.Dtos.Reports
 {
     public class ItemGroupReportDto
     {
@@ -7,9 +9,9 @@
         public int OrderedAmount { get; set; }
         public float TotalPrice { get; set; }
 
-        public ItemGroupReportDto WithItemId(string itemId)
+        public ItemGroupReportDto WithItemId(Guid itemId)
         {
-            ItemId = itemId;
+            ItemId = itemId.ToString("N");
             return this;
         }
 

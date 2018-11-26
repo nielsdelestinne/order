@@ -26,7 +26,7 @@ namespace Order_api.Controllers.Orders
         public OrderDto ToDto(Order order)
         {
             return new OrderDto()
-                .WithOrderId(order.Id.ToString("N"))
+                .WithOrderId(order.Id)
                 .WithAddress(_addressMapper.ToDto(GetAddressForCustomer(order.CustomerId)))
                 .WithItemGroups(order.OrderItems.Select(item => _orderItemMapper.ToDto(item)).ToArray());
         }
@@ -48,7 +48,7 @@ namespace Order_api.Controllers.Orders
         public OrderAfterCreationDto ToOrderAfterCreationDto(Order order)
         {
             return new OrderAfterCreationDto()
-                    .WithOrderId(order.Id.ToString())
+                    .WithOrderId(order.Id)
                     .WithTotalPrice(order.GetTotalPrice().GetAmountAsFloat());
         }
 
@@ -62,7 +62,7 @@ namespace Order_api.Controllers.Orders
         private SingleOrderReportDto ToSingleOrderReportDto(Order order)
         {
             return new SingleOrderReportDto()
-                    .WithOrderId(order.Id.ToString())
+                    .WithOrderId(order.Id)
                     .WithItemGroups(order.OrderItems.Select(item => _orderItemMapper.ToItemGroupReportDto(item)).ToArray());
         }
     }

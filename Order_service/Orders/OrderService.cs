@@ -15,19 +15,16 @@ namespace Order_service.Orders
         private readonly IRepository<Customer> _customerRepository;
         private readonly IRepository<Item> _itemRepository;
         private readonly IRepository<Order> _orderRepository;
-        private readonly IRepository<OrderItem> _orderItemRepository;
         private readonly OrderValidator _orderValidator;
 
         public OrderService(IRepository<Customer> customerRepository,
                         IRepository<Item> itemRepository,
                         IRepository<Order> orderRepository,
-                        IRepository<OrderItem> orderItemRepository,
                         OrderValidator orderValidator)
         {
             _customerRepository = customerRepository;
             _itemRepository = itemRepository;
             _orderRepository = orderRepository;
-            _orderItemRepository = orderItemRepository;
             _orderValidator = orderValidator;
         }
 
@@ -36,11 +33,6 @@ namespace Order_service.Orders
             AssertOrderIsValidForCreation(order);
             AssertOrderingCustomerExists(order);
             AssertAllOrderedItemsExist(order);
-            foreach (var orderItem in order.OrderItems)
-            {
-                orderItem.OrderId = order.Id;
-                _orderItemRepository.Save(orderItem);
-            }
             return _orderRepository.Save(order);
         }
 

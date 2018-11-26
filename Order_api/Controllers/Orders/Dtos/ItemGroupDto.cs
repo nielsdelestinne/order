@@ -1,13 +1,15 @@
-﻿namespace Order_api.Controllers.Orders.Dtos
+﻿using System;
+
+namespace Order_api.Controllers.Orders.Dtos
 {
     public class ItemGroupDto
     {
         public string ItemId { get; set; }
         public int OrderedAmount { get; set; }
         
-        public ItemGroupDto WithItemId(string itemId)
+        public ItemGroupDto WithItemId(Guid itemId)
         {
-            ItemId = itemId;
+            ItemId = itemId.ToString("N");
             return this;
         }
 

@@ -14,9 +14,9 @@ namespace Order_api.Controllers.Orders.Dtos.Reports
             return this;            
         }                           
                                     
-        public SingleOrderReportDto WithOrderId(string orderId)
+        public SingleOrderReportDto WithOrderId(Guid orderId)
         {                           
-            OrderId = orderId;
+            OrderId = orderId.ToString("N");
             return this;
         }
     }

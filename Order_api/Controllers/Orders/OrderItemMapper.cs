@@ -32,14 +32,14 @@ namespace Order_api.Controllers.Orders
         public override ItemGroupDto ToDto(OrderItem orderItem)
         {
             return new ItemGroupDto()
-                .WithItemId(orderItem.ItemId.ToString())
+                .WithItemId(orderItem.ItemId)
                 .WithOrderedAmount(orderItem.OrderedAmount);
         }
 
         public ItemGroupReportDto ToItemGroupReportDto(OrderItem orderItem)
         {
             return new ItemGroupReportDto()
-                .WithItemId(orderItem.ItemId.ToString())
+                .WithItemId(orderItem.ItemId)
                 .WithOrderedAmount(orderItem.OrderedAmount)
                 .WithName(EnrichWithItemName(orderItem))
                 .WithTotalPrice(orderItem.GetTotalPrice().GetAmountAsFloat());

@@ -22,9 +22,9 @@ namespace Order_api.Controllers.Orders.Dtos
             return this;
         }
 
-        public OrderDto WithOrderId(String orderId)
+        public OrderDto WithOrderId(Guid orderId)
         {
-            OrderId = orderId;
+            OrderId = orderId.ToString("N");
             return this;
         }
     }
