@@ -23,6 +23,7 @@ namespace Order_domain.Items
 
         public Item Update(Item entity)
         {
+            _dBContext.Items.Update(entity);
             _dBContext.SaveChanges();
             return entity;
         }

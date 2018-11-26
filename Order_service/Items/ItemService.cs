@@ -32,7 +32,17 @@ namespace Order_service.Items
             {
                 _itemValidator.ThrowInvalidOperationException(item, "updating");
             }
+            MapUpdatedValuesToPersistedItem(item);
             return _itemRepository.Update(item);
+        }
+
+        private void MapUpdatedValuesToPersistedItem(Item item)
+        {
+            var persistedEntity = _itemRepository.Get(item.Id);
+            persistedEntity.Name = item.Name;
+            persistedEntity.Price = item.Price;
+            persistedEntity.Description = item.Description;
+            persistedEntity.AmountOfStock = item.AmountOfStock;
         }
 
         public Item GetItem(Guid itemId)

@@ -39,7 +39,7 @@ namespace Order_api.Controllers.Items
         {
             return _itemMapper.ToDto(
                 _itemService.UpdateItem(
-                    _itemMapper.ToDomain(new Guid(id), itemDto)));
+                    _itemMapper.ToDomainForUpdate(new Guid(id), itemDto)));
         }
 
         [HttpGet]

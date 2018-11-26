@@ -16,21 +16,36 @@ namespace Order_api.Controllers.Items
             {
                 return ToDomain(itemDto.WithId(itemId));
             }
+            return ToDomain(itemDto);
+        }
 
+        public Item ToDomainForUpdate(Guid itemId, ItemDto itemDto)
+        {
             if (itemId != new Guid(itemDto.Id))
             {
                 throw new ArgumentException(
                     "When updating an item, the provided ID in the path should match the ID in the body: " +
                     "ID in path = " + itemId.ToString("N") + ", ID in body = " + itemDto.Id);
             }
+            return ToDomainForUpdate(itemDto);
 
-            return ToDomain(itemDto);
         }
 
         public override Item ToDomain(ItemDto itemDto)
         {
             return Item.ItemBuilder.Item()
                 .WithId(Guid.Empty)
+                .WithName(itemDto.Name)
+                .WithDescription(itemDto.Description)
+                .WithAmountOfStock(itemDto.AmountOfStock)
+                .WithPrice(Price.Create(new decimal(itemDto.Price)))
+                .Build();
+        }
+
+        private Item ToDomainForUpdate(ItemDto itemDto)
+        {
+            return Item.ItemBuilder.Item()
+                .WithId(new Guid(itemDto.Id))
                 .WithName(itemDto.Name)
                 .WithDescription(itemDto.Description)
                 .WithAmountOfStock(itemDto.AmountOfStock)
