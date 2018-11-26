@@ -66,6 +66,8 @@ namespace Order_api
             services.AddScoped<IRepository<Order>, OrderRepository>();
             services.AddScoped<IRepository<OrderItem>, OrderItemRepository>();
 
+            services.AddCors();
+
             services.AddSwagger();
         }
 
@@ -83,6 +85,12 @@ namespace Order_api
                     document.Info.Description = "An example API for Örder";
                 };
             });
+
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials());
 
             app.UseMiddleware(typeof(ErrorHandlingMiddleware));
             app.UseMvc();
