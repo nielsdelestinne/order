@@ -76,6 +76,12 @@ namespace Order_api
             {
                 settings.GeneratorSettings.DefaultPropertyNameHandling =
                     PropertyNameHandling.CamelCase;
+                settings.PostProcess = document =>
+                {
+                    document.Info.Version = "v1";
+                    document.Info.Title = "Örder API";
+                    document.Info.Description = "An example API for Örder";
+                };
             });
 
             app.UseMiddleware(typeof(ErrorHandlingMiddleware));
