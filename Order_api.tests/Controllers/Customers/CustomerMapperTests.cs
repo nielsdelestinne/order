@@ -109,7 +109,8 @@ namespace Order_api.tests.Controllers.Customers
                 .Build());
 
             // then
-            Assert.Equal(Guid.Empty, customer.Id);
+            Assert.NotEqual(customerId, customer.Id);
+            Assert.NotEqual(Guid.NewGuid(), customer.Id);
             Assert.Equal(firstname, customer.FirstName);
             Assert.Equal(lastname, customer.LastName);
 

@@ -16,15 +16,6 @@ namespace Order_service.tests.Customers
                                                        .Build()));
         }
 
-        [Fact]
-        public void isValidForCreation_givenAnId_thenNotValidForCreation()
-        {
-            Assert.False(new CustomerValidator()
-                .IsValidForCreation(CustomerTestBuilder.ACustomer()
-                                                       .WithId(Guid.NewGuid())
-                                                       .Build()));
-        }
-
         /**
          * To have this code properly tested,
          * we should create a test for each individual empty or null value.

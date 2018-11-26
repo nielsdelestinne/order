@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Linq;
+using Newtonsoft.Json;
+using Order_domain;
 using Order_domain.Items;
 using Order_domain.Items.Prices;
 using Order_domain.tests.Items;
@@ -15,7 +17,7 @@ namespace Order_service.tests.Items
 
         public ItemServiceIntegrationTests()
         {
-            _itemRepository = new ItemRepository(null);
+            _itemRepository = new ItemRepository(new DatabaseContext());
             _itemService = new ItemService(_itemRepository, new ItemValidator());
         }
 
@@ -45,7 +47,7 @@ namespace Order_service.tests.Items
             Item itemFromDb = _itemService.GetItem(createdItem.Id);
 
             Assert.NotNull(itemFromDb);
-            Assert.Equal(createdItem, itemFromDb);
+            Assert.Equal(JsonConvert.SerializeObject(createdItem), JsonConvert.SerializeObject(itemFromDb));
         }
 
         [Fact]
@@ -56,8 +58,8 @@ namespace Order_service.tests.Items
 
             var allItems = _itemService.GetAllItems().ToList();
 
-            Assert.Contains(createdItem1, allItems);
-            Assert.Contains(createdItem2, allItems);
+            Assert.Contains(JsonConvert.SerializeObject(createdItem1), JsonConvert.SerializeObject(allItems));
+            Assert.Contains(JsonConvert.SerializeObject(createdItem2), JsonConvert.SerializeObject(allItems));
         }
     }
 }

@@ -14,6 +14,7 @@ namespace Order_domain.tests.Orders.OrderItems
         {
             OrderItem orderItem = new OrderItem(OrderItem.OrderItemBuilder.OrderItem()
                     .WithOrderedAmount(5)
+                    .WithItemPrice(Price.Create(50))
                     .WithShippingDateBasedOnAvailableItemStock(10));
 
             Assert.Equal(DateTime.Now.AddDays(1).Date, orderItem.ShippingDate.Date);
@@ -24,6 +25,7 @@ namespace Order_domain.tests.Orders.OrderItems
         {
             OrderItem orderItem = new OrderItem(OrderItem.OrderItemBuilder.OrderItem()
                 .WithOrderedAmount(5)
+                .WithItemPrice(Price.Create(50))
                 .WithShippingDateBasedOnAvailableItemStock(4));
 
             Assert.Equal(DateTime.Now.AddDays(7).Date, orderItem.ShippingDate.Date);

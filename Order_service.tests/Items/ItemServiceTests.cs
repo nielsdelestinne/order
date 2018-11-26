@@ -1,4 +1,5 @@
 ﻿using System;
+using Order_domain;
 using Order_domain.Items;
 using Order_domain.tests.Items;
 using Order_service.Items;
@@ -12,7 +13,7 @@ namespace Order_service.tests.Items
 
         public ItemServiceTests()
         {
-            _itemService = new ItemService(new ItemRepository(null), new ItemValidator());
+            _itemService = new ItemService(new ItemRepository(new DatabaseContext()), new ItemValidator());
         }
 
         [Fact]
@@ -40,17 +41,20 @@ namespace Order_service.tests.Items
         public void updateItem_happyPath()
         {
             Item item = ItemTestBuilder.AnItem().WithId(Guid.NewGuid()).Build();
+            item = _itemService.CreateItem(item);
 
+            item.Description = "UpdatedDesc";
             Item updatedItem = _itemService.UpdateItem(item);
 
             Assert.NotNull(updatedItem);
+            Assert.Equal("UpdatedDesc", updatedItem.Description);
         }
 
         [Fact]
         public void updateItem_givenItemThatIsNotValidForUpdating_thenThrowException()
         {
             Item item = ItemTestBuilder.AnItem()
-                .WithAmountOfStock(0)
+                .WithAmountOfStock(-1)
                 .Build();
 
             Exception ex = Assert.Throws<InvalidOperationException>(() => _itemService.UpdateItem(item));

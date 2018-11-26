@@ -100,6 +100,10 @@ namespace Order_api.integrationTests.Controllers.Customers
             var content = JsonConvert.SerializeObject(customerToCreate);
             var stringContent = new StringContent(content, Encoding.UTF8, "application/json");
 
+            var initialResponse = await _client.GetAsync("/api/customers");
+            var initialResponseString = await initialResponse.Content.ReadAsStringAsync();
+            var allInitialCustomers = JsonConvert.DeserializeObject<IEnumerable<CustomerDto>>(initialResponseString);
+
             await _client.PostAsync("/api/customers", stringContent);
             await _client.PostAsync("/api/customers", stringContent);
 
@@ -109,7 +113,7 @@ namespace Order_api.integrationTests.Controllers.Customers
             var responseString = await response.Content.ReadAsStringAsync();
             var allCustomers = JsonConvert.DeserializeObject<IEnumerable<CustomerDto>>(responseString);
 
-            Assert.Equal(2, allCustomers.Count());
+            Assert.Equal(allInitialCustomers.Count() + 2, allCustomers.Count());
         }
 
         [Fact]

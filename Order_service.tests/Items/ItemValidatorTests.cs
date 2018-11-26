@@ -15,12 +15,6 @@ namespace Order_service.tests.Items
         }
 
         [Fact]
-        public void isValidForCreation_givenId_thenNotValidForCreation()
-        {
-            Assert.False(new ItemValidator().IsValidForCreation(ItemTestBuilder.AnItem().WithId(Guid.NewGuid()).Build()));
-        }
-
-        [Fact]
         public void isValidForCreation_givenEmptyName_thenNotValidForCreation()
         {
             Assert.False(new ItemValidator().IsValidForCreation(ItemTestBuilder.AnItem().WithName(string.Empty).Build()));
@@ -72,12 +66,6 @@ namespace Order_service.tests.Items
         public void isValidForUpdating_happyPath()
         {
             Assert.True(new ItemValidator().IsValidForUpdating(ItemTestBuilder.AnItem().WithId(Guid.NewGuid()).Build()));
-        }
-
-        [Fact]
-        public void isValidForUpdating_givenNoId_thenNotValidForUpdating()
-        {
-            Assert.False(new ItemValidator().IsValidForUpdating(ItemTestBuilder.AnItem().Build()));
         }
     }
 }

@@ -1,4 +1,6 @@
 ﻿using System;
+using Newtonsoft.Json;
+using Order_domain;
 using Order_domain.Customers;
 using Order_domain.tests.Customers;
 using Order_service.Customers;
@@ -13,7 +15,7 @@ namespace Order_service.tests.Customers
 
         public CustomerServiceTests()
         {
-            _customerRepository = new CustomerRepository(null);
+            _customerRepository = new CustomerRepository(new DatabaseContext());
             _customerService = new CustomerService(_customerRepository, new CustomerValidator());
         }
 
@@ -25,7 +27,8 @@ namespace Order_service.tests.Customers
             Customer createdCustomer = _customerService.CreateCustomer(customer);
 
             Assert.NotNull(createdCustomer);
-            Assert.Equal(customer, _customerRepository.Get(createdCustomer.Id));
+            Assert.Equal(JsonConvert.SerializeObject(customer),
+                JsonConvert.SerializeObject(_customerRepository.Get(createdCustomer.Id)));
         }
 
         [Fact]

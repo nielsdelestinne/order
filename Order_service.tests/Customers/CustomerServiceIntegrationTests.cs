@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Linq;
+using Newtonsoft.Json;
+using Order_domain;
 using Order_domain.Customers;
 using Order_domain.tests.Customers;
 using Order_service.Customers;
@@ -14,7 +16,7 @@ namespace Order_service.tests.Customers
 
         public CustomerServiceIntegrationTests()
         {
-            _customerRepository = new CustomerRepository(null);
+            _customerRepository = new CustomerRepository(new DatabaseContext());
             _customerService = new CustomerService(_customerRepository, new CustomerValidator());
         }
 
@@ -27,8 +29,8 @@ namespace Order_service.tests.Customers
 
             var customer = _customerRepository.Get(customerToCreate.Id);
 
-            Assert.Equal(customerToCreate, customer);
-            Assert.Equal(createdCustomer, customer);
+            Assert.Equal(JsonConvert.SerializeObject(customerToCreate), JsonConvert.SerializeObject(customer));
+            Assert.Equal(JsonConvert.SerializeObject(createdCustomer), JsonConvert.SerializeObject(customer));
         }
 
         [Fact]
@@ -40,9 +42,9 @@ namespace Order_service.tests.Customers
 
             var allCustomers = _customerService.GetAllCustomers().ToList();
 
-            Assert.Contains(customer1, allCustomers);
-            Assert.Contains(customer2, allCustomers);
-            Assert.Contains(customer3, allCustomers);
+            Assert.Contains(JsonConvert.SerializeObject(customer1), JsonConvert.SerializeObject(allCustomers));
+            Assert.Contains(JsonConvert.SerializeObject(customer2), JsonConvert.SerializeObject(allCustomers));
+            Assert.Contains(JsonConvert.SerializeObject(customer3), JsonConvert.SerializeObject(allCustomers));
         }
 
         [Fact]
@@ -53,7 +55,10 @@ namespace Order_service.tests.Customers
             _customerService.CreateCustomer(CustomerTestBuilder.ACustomer().Build());
             Customer foundCustomer = _customerService.GetCustomer(customerToFind.Id);
 
-            Assert.Equal(customerToFind, foundCustomer);
+            Assert
+                .Equal(
+                    JsonConvert.SerializeObject(customerToFind), 
+                    JsonConvert.SerializeObject(foundCustomer));
         }
     }
 }
